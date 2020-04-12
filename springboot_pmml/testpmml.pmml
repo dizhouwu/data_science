@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PMML xmlns="http://www.dmg.org/PMML-4_3" xmlns:data="http://jpmml.org/jpmml-model/InlineTable" version="4.3">
+	<Header>
+		<Application name="JPMML-SkLearn" version="1.5.35"/>
+		<Timestamp>2020-04-11T22:18:31Z</Timestamp>
+	</Header>
+	<MiningBuildTask>
+		<Extension>PMMLPipeline(steps=[('lr', LogisticRegression(C=1.0, class_weight=None, dual=False, fit_intercept=True,
+          intercept_scaling=1, max_iter=100, multi_class='ovr', n_jobs=1,
+          penalty='l2', random_state=None, solver='liblinear', tol=0.0001,
+          verbose=0, warm_start=False))])</Extension>
+	</MiningBuildTask>
+	<DataDictionary>
+		<DataField name="y" optype="categorical" dataType="integer">
+			<Value value="0"/>
+			<Value value="1"/>
+			<Value value="2"/>
+		</DataField>
+		<DataField name="slength" optype="continuous" dataType="double"/>
+		<DataField name="swidth" optype="continuous" dataType="double"/>
+		<DataField name="plength" optype="continuous" dataType="double"/>
+		<DataField name="pwidth" optype="continuous" dataType="double"/>
+	</DataDictionary>
+	<MiningModel functionName="classification">
+		<MiningSchema>
+			<MiningField name="y" usageType="target"/>
+			<MiningField name="slength"/>
+			<MiningField name="swidth"/>
+			<MiningField name="plength"/>
+			<MiningField name="pwidth"/>
+		</MiningSchema>
+		<Segmentation multipleModelMethod="modelChain" x-missingPredictionTreatment="returnMissing">
+			<Segment id="1">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="slength"/>
+						<MiningField name="swidth"/>
+						<MiningField name="plength"/>
+						<MiningField name="pwidth"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(0)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="0.26560616797551695">
+						<NumericPredictor name="slength" coefficient="0.4149883282957013"/>
+						<NumericPredictor name="swidth" coefficient="1.4612973885622267"/>
+						<NumericPredictor name="plength" coefficient="-2.2621411772020728"/>
+						<NumericPredictor name="pwidth" coefficient="-1.02909509924489"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="2">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="slength"/>
+						<MiningField name="swidth"/>
+						<MiningField name="plength"/>
+						<MiningField name="pwidth"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(1)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="1.0854237423889572">
+						<NumericPredictor name="slength" coefficient="0.41663968559520786"/>
+						<NumericPredictor name="swidth" coefficient="-1.6008331852575897"/>
+						<NumericPredictor name="plength" coefficient="0.5776576286775582"/>
+						<NumericPredictor name="pwidth" coefficient="-1.3855384286634223"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="3">
+				<True/>
+				<RegressionModel functionName="regression" normalizationMethod="logit">
+					<MiningSchema>
+						<MiningField name="slength"/>
+						<MiningField name="swidth"/>
+						<MiningField name="plength"/>
+						<MiningField name="pwidth"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="decisionFunction(2)" optype="continuous" dataType="double" isFinalResult="false"/>
+					</Output>
+					<RegressionTable intercept="-1.2147145780786366">
+						<NumericPredictor name="slength" coefficient="-1.7075251538239047"/>
+						<NumericPredictor name="swidth" coefficient="-1.5342683399889876"/>
+						<NumericPredictor name="plength" coefficient="2.4709716807720206"/>
+						<NumericPredictor name="pwidth" coefficient="2.5553821129820884"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+			<Segment id="4">
+				<True/>
+				<RegressionModel functionName="classification" normalizationMethod="simplemax">
+					<MiningSchema>
+						<MiningField name="y" usageType="target"/>
+						<MiningField name="decisionFunction(0)"/>
+						<MiningField name="decisionFunction(1)"/>
+						<MiningField name="decisionFunction(2)"/>
+					</MiningSchema>
+					<Output>
+						<OutputField name="probability(0)" optype="continuous" dataType="double" feature="probability" value="0"/>
+						<OutputField name="probability(1)" optype="continuous" dataType="double" feature="probability" value="1"/>
+						<OutputField name="probability(2)" optype="continuous" dataType="double" feature="probability" value="2"/>
+					</Output>
+					<RegressionTable intercept="0.0" targetCategory="0">
+						<NumericPredictor name="decisionFunction(0)" coefficient="1.0"/>
+					</RegressionTable>
+					<RegressionTable intercept="0.0" targetCategory="1">
+						<NumericPredictor name="decisionFunction(1)" coefficient="1.0"/>
+					</RegressionTable>
+					<RegressionTable intercept="0.0" targetCategory="2">
+						<NumericPredictor name="decisionFunction(2)" coefficient="1.0"/>
+					</RegressionTable>
+				</RegressionModel>
+			</Segment>
+		</Segmentation>
+		<ModelVerification recordCount="15">
+			<VerificationFields>
+				<VerificationField field="slength" column="data:slength"/>
+				<VerificationField field="swidth" column="data:swidth"/>
+				<VerificationField field="plength" column="data:plength"/>
+				<VerificationField field="pwidth" column="data:pwidth"/>
+				<VerificationField field="probability(0)" column="data:probability_0" precision="1.0E-13" zeroThreshold="1.0E-13"/>
+				<VerificationField field="probability(1)" column="data:probability_1" precision="1.0E-13" zeroThreshold="1.0E-13"/>
+				<VerificationField field="probability(2)" column="data:probability_2" precision="1.0E-13" zeroThreshold="1.0E-13"/>
+			</VerificationFields>
+			<InlineTable>
+				<row>
+					<data:slength>5.1</data:slength>
+					<data:swidth>3.8</data:swidth>
+					<data:plength>1.6</data:plength>
+					<data:pwidth>0.2</data:pwidth>
+					<data:probability_0>0.9098556625822956</data:probability_0>
+					<data:probability_1>0.09013276497956606</data:probability_1>
+					<data:probability_2>1.1572438138386734E-5</data:probability_2>
+				</row>
+				<row>
+					<data:slength>6.3</data:slength>
+					<data:swidth>3.3</data:swidth>
+					<data:plength>6.0</data:plength>
+					<data:pwidth>2.5</data:pwidth>
+					<data:probability_0>1.860360216134521E-4</data:probability_0>
+					<data:probability_1>0.1487608226570688</data:probability_1>
+					<data:probability_2>0.8510531413213178</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.7</data:slength>
+					<data:swidth>2.6</data:swidth>
+					<data:plength>3.5</data:plength>
+					<data:pwidth>1.0</data:pwidth>
+					<data:probability_0>0.12847301722799576</data:probability_0>
+					<data:probability_1>0.8313616910550877</data:probability_1>
+					<data:probability_2>0.04016529171691637</data:probability_2>
+				</row>
+				<row>
+					<data:slength>4.9</data:slength>
+					<data:swidth>3.1</data:swidth>
+					<data:plength>1.5</data:plength>
+					<data:pwidth>0.1</data:pwidth>
+					<data:probability_0>0.7954215540344054</data:probability_0>
+					<data:probability_1>0.20455276274160186</data:probability_1>
+					<data:probability_2>2.56832239928007E-5</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.4</data:slength>
+					<data:swidth>3.0</data:swidth>
+					<data:plength>4.5</data:plength>
+					<data:pwidth>1.5</data:pwidth>
+					<data:probability_0>0.010312340747191286</data:probability_0>
+					<data:probability_1>0.365034694720365</data:probability_1>
+					<data:probability_2>0.6246529645324438</data:probability_2>
+				</row>
+				<row>
+					<data:slength>6.7</data:slength>
+					<data:swidth>3.0</data:swidth>
+					<data:plength>5.2</data:plength>
+					<data:pwidth>2.3</data:pwidth>
+					<data:probability_0>0.0011572472998611781</data:probability_0>
+					<data:probability_1>0.2336165479592892</data:probability_1>
+					<data:probability_2>0.7652262047408496</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.1</data:slength>
+					<data:swidth>3.3</data:swidth>
+					<data:plength>1.7</data:plength>
+					<data:pwidth>0.5</data:pwidth>
+					<data:probability_0>0.8677856291555369</data:probability_0>
+					<data:probability_1>0.13214617765286393</data:probability_1>
+					<data:probability_2>6.819319159923516E-5</data:probability_2>
+				</row>
+				<row>
+					<data:slength>7.1</data:slength>
+					<data:swidth>3.0</data:swidth>
+					<data:plength>5.9</data:plength>
+					<data:pwidth>2.1</data:pwidth>
+					<data:probability_0>2.7812655134652194E-4</data:probability_0>
+					<data:probability_1>0.33053538588968234</data:probability_1>
+					<data:probability_2>0.6691864875589711</data:probability_2>
+				</row>
+				<row>
+					<data:slength>6.7</data:slength>
+					<data:swidth>3.3</data:swidth>
+					<data:plength>5.7</data:plength>
+					<data:pwidth>2.1</data:pwidth>
+					<data:probability_0>6.778470717057912E-4</data:probability_0>
+					<data:probability_1>0.23720400962545218</data:probability_1>
+					<data:probability_2>0.7621181433028421</data:probability_2>
+				</row>
+				<row>
+					<data:slength>7.7</data:slength>
+					<data:swidth>2.6</data:swidth>
+					<data:plength>6.9</data:plength>
+					<data:pwidth>2.3</data:pwidth>
+					<data:probability_0>1.3006497635743863E-5</data:probability_0>
+					<data:probability_1>0.42013719149205114</data:probability_1>
+					<data:probability_2>0.5798498020103132</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.9</data:slength>
+					<data:swidth>3.2</data:swidth>
+					<data:plength>4.8</data:plength>
+					<data:pwidth>1.8</data:pwidth>
+					<data:probability_0>0.006207457514264432</data:probability_0>
+					<data:probability_1>0.2731061889078013</data:probability_1>
+					<data:probability_2>0.7206863535779343</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.6</data:slength>
+					<data:swidth>2.7</data:swidth>
+					<data:plength>4.2</data:plength>
+					<data:pwidth>1.3</data:pwidth>
+					<data:probability_0>0.019841869407869937</data:probability_0>
+					<data:probability_1>0.6408718001531267</data:probability_1>
+					<data:probability_2>0.3392863304390033</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.7</data:slength>
+					<data:swidth>4.4</data:swidth>
+					<data:plength>1.5</data:plength>
+					<data:pwidth>0.4</data:pwidth>
+					<data:probability_0>0.9645356562128301</data:probability_0>
+					<data:probability_1>0.03546208500780515</data:probability_1>
+					<data:probability_2>2.25877936478959E-6</data:probability_2>
+				</row>
+				<row>
+					<data:slength>5.6</data:slength>
+					<data:swidth>2.9</data:swidth>
+					<data:plength>3.6</data:plength>
+					<data:pwidth>1.3</data:pwidth>
+					<data:probability_0>0.16743486644602576</data:probability_0>
+					<data:probability_1>0.7127562088386731</data:probability_1>
+					<data:probability_2>0.11980892471530113</data:probability_2>
+				</row>
+				<row>
+					<data:slength>4.8</data:slength>
+					<data:swidth>3.4</data:swidth>
+					<data:plength>1.6</data:plength>
+					<data:pwidth>0.2</data:pwidth>
+					<data:probability_0>0.8633649910371245</data:probability_0>
+					<data:probability_1>0.13660058878307238</data:probability_1>
+					<data:probability_2>3.442017980317739E-5</data:probability_2>
+				</row>
+			</InlineTable>
+		</ModelVerification>
+	</MiningModel>
+</PMML>
