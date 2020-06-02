@@ -1,0 +1,17 @@
+Run Time Analysis: Big O notation
+# Task0
+O(1) Since getting element in Python list is O(1)
+
+# Task1 
+O(n)
+Since update is O(n) and list comprehension is 2*O(n) = O(n)
+
+# Task2 
+O(n) since we need to loop through lists.
+Get element is O(1) so overall is O(n)
+
+# Task3
+O(nlogn) as sort is used. All other loop/get item is O(1) or O(n)
+
+# Task4
+O(nlogn). Again, we sort the list. All other loop/get item is O(1) or O(n)
