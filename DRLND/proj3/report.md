@@ -48,4 +48,9 @@ Results:
 
 
 
-![alt text](results.jpg)
+![alt text](results.jpg)<br />
+
+
+Ideas for Future Work<br />
+Change neural net architecture.<br />
+Use algorithm other than DDPG.
