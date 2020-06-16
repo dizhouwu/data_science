@@ -1,10 +1,10 @@
 Model(ddpg_model.py)
-The Actor-Critic architecture is applied. 
-HYPERPARAMS:
-FC1_UNITS = 256
-FC2_UNITS =128
-ACTIVATION:
-leaky_relu
+The Actor-Critic architecture is applied. <br />
+HYPERPARAMS:<br />
+FC1_UNITS = 256<br />
+FC2_UNITS =128<br />
+ACTIVATION:<br />
+leaky_relu<br />
 
 Agent: (maddpg_agent.py)
 
@@ -21,8 +21,8 @@ NUM_STEPS_TO_UPDATE = 10        # Number of times to update the networks at a gi
 
 main function:
 HYPERPARAMS:
-n_episodes=3000, max_t=1000
-CHECK_EVERY: Checkpoint every number of episodes
+n_episodes=3000, max_t=1000<br />
+CHECK_EVERY: Checkpoint every number of episodes<br />
 
 
 Results:
